@@ -87,7 +87,7 @@ class LookupModule(LookupBase):
             "amzn2": {"amazon linux 2"},
             "fbsd": {"freebsd"},
             "ubuntu": {},
-            "debian": {},
+            "debian": {"kali"},
             "msi": {"windows"},
             "suse": {"opensuse"},
             "fc": {"fedora"},
