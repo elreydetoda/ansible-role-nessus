@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+ansible-base = "*"
+requests = "*"
+
+[dev-packages]
+ansible-lint = "*"
+ansible-builder = "*"
+ansible-navigator = "*"
+black = "*"
+
+[requires]
+python_version = "3.10"

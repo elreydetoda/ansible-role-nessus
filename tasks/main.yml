@@ -1,0 +1,11 @@
+---
+# tasks file for ansible-role-nessus
+
+
+# - ansible.builtin.debug:
+#     msg: "{{ (lookup('nessus_download', 'Nessus - 10.4.2', arch='amd64', linux_distro='debian')).url }}"
+
+- name: Install Nessus
+  ansible.builtin.apt:
+    deb: "{{ (lookup('nessus_download', nessus_version, arch=nessus_arch, linux_distro=nessus_distro)).url }}"
+  become: true

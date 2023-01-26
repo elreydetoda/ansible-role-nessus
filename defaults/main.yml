@@ -1,0 +1,6 @@
+---
+# defaults file for ansible-role-nessus
+
+nessus_version: 'latest'
+nessus_arch: 'amd64'
+nessus_distro: 'debian' # this is for kali
