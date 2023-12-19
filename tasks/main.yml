@@ -4,8 +4,26 @@
 
 # - ansible.builtin.debug:
 #     msg: "{{ (lookup('nessus_download', 'Nessus - 10.4.2', arch='amd64', linux_distro='debian')).url }}"
-
 - name: Install Nessus
   ansible.builtin.apt:
     deb: "{{ (lookup('nessus_download', nessus_version, arch=nessus_arch, linux_distro=nessus_distro)).url }}"
   become: true
+
+- name: Re-provisioning Nessus
+  ansible.builtin.file:
+    state: absent
+    path: "/root/.nessus_configured"
+  when:
+    - FORCE_NESSUS_PROV is defined
+
+- name: Licensing Nessus
+  ansible.builtin.command:
+    cmd: '{{ nessus_cli }} fetch --register {{ nessus_lic }}'
+    creates: '{{ ansible_user_dir }}/.nessus_configured'
+  when: nessus_lic | length > 0
+
+- name: Creating file to prevent nessus from configuring again
+  ansible.builtin.copy:
+    dest: '{{ ansible_user_dir }}/.nessus_configured'
+    content: ""
+    mode: "600"
