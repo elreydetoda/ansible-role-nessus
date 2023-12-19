@@ -12,7 +12,7 @@
 - name: Re-provisioning Nessus
   ansible.builtin.file:
     state: absent
-    path: "{{ ansible_user_dir }}/.nessus_configured"
+    path: "{{ ansible_user_dir }}/.nessus_licensed"
   when:
     - FORCE_NESSUS_PROV is defined
   become: true
@@ -20,13 +20,14 @@
 - name: Licensing Nessus
   ansible.builtin.command:
     cmd: '{{ nessus_cli }} fetch --register {{ nessus_lic }}'
-    creates: '{{ ansible_user_dir }}/.nessus_configured'
+    creates: '{{ ansible_user_dir }}/.nessus_licensed'
   when: nessus_lic | length > 0
   become: true
 
 - name: Creating file to prevent nessus from configuring again
   ansible.builtin.copy:
-    dest: '{{ ansible_user_dir }}/.nessus_configured'
+    dest: '{{ ansible_user_dir }}/.nessus_licensed'
     content: ""
     mode: "600"
+  when: nessus_lic | length > 0
   become: true
