@@ -13,5 +13,5 @@
   include_tasks: install_Fedora.yml
   when: ansible_facts['distribution'] == "Fedora" and ansible_facts['distribution_version']|int == 30
 
-- include: configure.yml
+- include_tasks: configure.yml
   when: ansible_facts['distribution'] != 'RedHat'
